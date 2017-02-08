@@ -7,43 +7,47 @@ namespace Trabajo_final_csharp.App_Start
 {
     public class MovimientoRecurrente
     {
-        DateTime fechaInicio;
-        string tipoMovimiento;
-        int frecfacturacion;
-        int plazoEjecucion;
-        int idRecurrente;
+        private DateTime fechaIni;
+        private int FrecFact;//frecuencia con que la factura se va a realizar
+        private int PlazoEjecucion;
+        private int IdRecurrente;
 
-        public MovimientoRecurrente(DateTime fechaInicio, string tipoMovimiento, int frecfacturacion, int plazoEjecucion)
+        //constructores
+        public MovimientoRecurrente() { }
+
+        public MovimientoRecurrente(DateTime FI, int FF, int PE, int IR)
         {
-            this.tipoMovimiento = tipoMovimiento;
-            this.frecfacturacion = frecfacturacion;
-            this.fechaInicio = fechaInicio;
-            this.plazoEjecucion = plazoEjecucion;
+            this.fechaIni = FI;
+            this.FrecFact = FF;
+            this.PlazoEjecucion = PE;
+            this.IdRecurrente = IR;
         }
-        public DateTime FechaInicio
+        public DateTime SGFechaIni {
+        set { this.fechaIni = value; }
+        get { return fechaIni; } }
+
+        public int SGFrecuenciaFact {
+        set { this.FrecFact = value; }
+        get { return FrecFact; } }
+
+        public int SGPlazoEje
         {
-            get { return fechaInicio; }
-            set { fechaInicio = value; }
+            set { this.PlazoEjecucion = value; }
+            get { return PlazoEjecucion; }
         }
-        public string TipoMovimiento
+        public int SGIdRecurrente
         {
-            get { return tipoMovimiento; }
-            set { tipoMovimiento = value; }
+            set { this.IdRecurrente = value; }
+            get { return IdRecurrente; }
         }
-        public int Frecfacturacion
+        public string FormatoFecha(DateTime fe)
         {
-            get { return frecfacturacion; }
-            set { frecfacturacion = value; }
+            return fe.ToString("dd/MM/yyyy");
         }
-        public int PlazoEjecucion
+        public int Tamaño //tamaño del registro Persona
         {
-            get { return plazoEjecucion; }
-            set { plazoEjecucion = value; }
-        }
-        public int IdRecurrente
-        {
-            get { return idRecurrente; }
-            set { idRecurrente = value; }
+            // Longitud en bytes de los atributos (un long = 8 bytes)
+            get { return (FormatoFecha(SGFechaIni).Length * 2 + 8+8 + 8); }
         }
     }
 }

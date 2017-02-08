@@ -7,40 +7,53 @@ namespace Trabajo_final_csharp.App_Start
 {
     public class MovimientoSimple
     {
-        string tipoMovimiento;
-        string moneda;
-        double monto;
-        int idFactura;
+        private string TipoMovimiento;//si es cobro o pago
+        private string Moneda;
+        private Double Monto;
+        private int IdFactura;
+        private Double TipoDeCambio;
 
-        public MovimientoSimple(string tipoMovimiento, string moneda, double monto, int idFactura)
-        {
-            this.tipoMovimiento = tipoMovimiento;
-            this.moneda = moneda;
-            this.monto= monto;
-            this.idFactura = idFactura;
-        }
-        public string TipoMovimiento
-        {
-            get { return tipoMovimiento; }
-            set { tipoMovimiento = value; }
-        }
+        //CONSTRUCTORES
+        public MovimientoSimple(){}
 
-        public double Monto
+        public MovimientoSimple(string TM, string mone, Double M, int IF, Double TC)
         {
-            get { return monto; }
-            set { monto = value; }
+            this.TipoMovimiento = TM;
+            this.Moneda = mone;
+            this.Monto = M;
+            this.IdFactura = IF;
+            this.TipoDeCambio = TC;
         }
-
-        public string Moneda
+        public string SGTipoMov
         {
-            get { return moneda; }
-            set { moneda = value; }
+            get { return TipoMovimiento; }
+            set { TipoMovimiento = value; }
         }
-
-        public int IdFactura
+        public string SGMoneda
         {
-            get { return idFactura; }
-            set { idFactura = value; }
+            get { return Moneda; }
+            set { Moneda = value; }
+        }
+        public Double SGMonto
+        {
+            get { return Monto; }
+            set { Monto = value; }
+        }
+        public int SGIdFactura
+        {
+            get { return IdFactura; }
+            set { IdFactura = value; }
+        }
+        public Double SGTipoCambio
+        {
+            get { return TipoDeCambio; }
+            set { TipoDeCambio = value; }
+        }
+       
+        public int Tamaño //tamaño del registro Persona
+        {
+            // Longitud en bytes de los atributos (un long = 8 bytes)
+            get { return (SGTipoMov.Length*2+SGMoneda.Length*2+16+8 ); }
         }
     }
 }

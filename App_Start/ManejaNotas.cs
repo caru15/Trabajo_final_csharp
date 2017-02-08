@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 using System.IO;
 
-
 namespace Trabajo_final_csharp.App_Start
 {
-    public class ListaNotas
+    public class ManejaNotas
     {
         private FileStream fs, fst;
         private BinaryWriter bw, bwt;
@@ -15,7 +14,7 @@ namespace Trabajo_final_csharp.App_Start
         private int nregs;
         private int tamañoReg = 100;
 
-        public ListaNotas(String fichero)
+        public ManejaNotas(String fichero)
         {
             AbrirFichero(fichero);
         }
@@ -33,7 +32,7 @@ namespace Trabajo_final_csharp.App_Start
             br = new BinaryReader(fs);
             nregs = (int)Math.Ceiling((double)fs.Length / (double)tamañoReg);
         }
-        public bool AgregarRegistro(TipoNotas obj) //agrega un registro al ultimo
+        public bool AgregarRegistro(ClsNota obj)//agrega un registro al ultimo
         {
             if (EscribirRegistro(nregs, obj))
             {
@@ -46,7 +45,7 @@ namespace Trabajo_final_csharp.App_Start
             }
         }
 
-        public bool EscribirRegistro(int i, TipoNotas obj)
+        public bool EscribirRegistro(int i, ClsNota obj)
         {
             try
             {
@@ -62,8 +61,9 @@ namespace Trabajo_final_csharp.App_Start
                         bw.BaseStream.Seek(i * tamañoReg, SeekOrigin.Begin);
                         bw.Write(obj.IdNota);
                         bw.Write(obj.Tipo);
-                        bw.Write(Formato(obj.Fecha));
                         bw.Write(obj.Monto);
+                        bw.Write(obj.Fecha.ToString());
+                        bw.Write(obj.SGIdFactura);
                         return true;
                     }
                 }
@@ -87,17 +87,18 @@ namespace Trabajo_final_csharp.App_Start
             return dia.ToString("dd/MM/yyyy");
         }
 
-        public TipoNotas LeerReg(int i)
+        public ClsNota LeerReg(int i)
         {
             if (i >= 0 && i <= nregs)
             {
                 br.BaseStream.Seek(i * tamañoReg, SeekOrigin.Begin);
                 int idnota = br.ReadInt32();
                 String tipo = br.ReadString();
-                String fecha = br.ReadString();
                 double monto = br.ReadDouble();
+                String fecha = br.ReadString();
+                int IdFactura = br.ReadInt32();
 
-                return (new TipoNotas(idnota, tipo, monto, Convert.ToDateTime(fecha)));
+                return (new ClsNota(idnota, tipo, monto, Convert.ToDateTime(fecha),IdFactura));
             }
             else
             {
@@ -107,7 +108,7 @@ namespace Trabajo_final_csharp.App_Start
         //busca Nota por id y devuelve su posicion
         public int BuscarNota(int idnota)
         {
-            TipoNotas obj;
+            ClsNota obj;
             int num;
             int reg_i = 0;
             bool encontrado = false;
@@ -132,7 +133,7 @@ namespace Trabajo_final_csharp.App_Start
                 { return -1; }
             }
         }
-        //elimina cheque pasando numero de id
+        //elimina cheque pasando numero de id, ojo que falta controlar los atributos
         public void EliminarNota(int idnota, String fichero)
         {
             int regi = 0;
@@ -145,7 +146,7 @@ namespace Trabajo_final_csharp.App_Start
             {
                 if (regist != pos)
                 {
-                    TipoNotas nota1 = LeerReg(regist);
+                    ClsNota nota1 = LeerReg(regist);
                     bwt.BaseStream.Seek(regi * tamañoReg, SeekOrigin.Begin);
                     bwt.Write(nota1.IdNota);
                     bwt.Write(nota1.Tipo);
@@ -157,7 +158,7 @@ namespace Trabajo_final_csharp.App_Start
                 else
                 {
                     regist++;
-                    TipoNotas nota1 = LeerReg(regist);
+                    ClsNota nota1 = LeerReg(regist);
                     bwt.BaseStream.Seek(regi * tamañoReg, SeekOrigin.Begin);
                     bwt.Write(nota1.IdNota);
                     bwt.Write(nota1.Tipo);
@@ -177,4 +178,4 @@ namespace Trabajo_final_csharp.App_Start
             AbrirFichero(fichero);
         }
     }
-}
+} 

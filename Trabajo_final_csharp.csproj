@@ -182,6 +182,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ABMCuenta.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
     <Content Include="Account\Confirm.aspx" />
@@ -198,6 +199,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Alta_Mov_Simple.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -259,6 +261,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABMCuenta.aspx.cs">
+      <DependentUpon>ABMCuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMCuenta.aspx.designer.cs">
+      <DependentUpon>ABMCuenta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\AddPhoneNumber.aspx.cs">
       <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -364,6 +373,13 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Alta_Mov_Simple.aspx.cs">
+      <DependentUpon>Alta_Mov_Simple.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alta_Mov_Simple.aspx.designer.cs">
+      <DependentUpon>Alta_Mov_Simple.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -372,11 +388,19 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\ClsNota.cs" />
     <Compile Include="App_Start\Cuenta.cs" />
     <Compile Include="App_Start\FacturaEventual.cs" />
+    <Compile Include="App_Start\FacturaReal.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\ListaFacturaEvent.cs" />
+    <Compile Include="App_Start\ListaFacturaReal.cs" />
+    <Compile Include="App_Start\ListaMovRecurrente.cs" />
+    <Compile Include="App_Start\ListaMovSimple.cs" />
     <Compile Include="App_Start\ManejaCuenta.cs" />
+    <Compile Include="App_Start\ManejaNotas.cs" />
+    <Compile Include="App_Start\MovimientoRecurrente.cs" />
+    <Compile Include="App_Start\MovimientoSimple.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Contact.aspx.cs">
@@ -423,6 +447,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Archivos\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

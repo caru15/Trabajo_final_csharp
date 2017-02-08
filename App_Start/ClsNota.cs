@@ -2,45 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Trabajo_final_csharp.App_Start;
 
 namespace Trabajo_final_csharp.App_Start
 {
-    public class TipoNotas
+    public class ClsNota
     {
+
         private int idNota;
-        private int IdFactura;
         private String tipo;
         private double monto;
-        private DateTime fecha;//fecha de cobro o pago y esta a 30 dias
-        //private String fecha;
+        private DateTime fecha;//de cobro o pago a 30 dias
+        private int IdFactura;
 
         //CONSTRUCTOR
 
-        public TipoNotas()
-        {
-        }
+        public ClsNota() { }
 
-        public TipoNotas(int id,int IF, String tip, double mon, DateTime fec)
+        public ClsNota(int id, String tip, double mon, DateTime fec,int IF)
         {
-            this.idNota = id;
+            this.IdNota = id;
+            this.Tipo = tip;
+            this.Monto = mon;
+            this.Fecha = fec;
             this.IdFactura = IF;
-            this.tipo = tip;
-            this.monto = mon;
-            this.fecha = fec;
         }
 
-        //PROPERTIES
+       
 
         public int IdNota
         {
             set { this.idNota = value; }
             get { return this.idNota; }
-        }
-
-        public int SGIdFact {
-            set { this.IdFactura = value; }
-            get { return IdFactura; }
         }
 
         public String Tipo
@@ -60,6 +52,12 @@ namespace Trabajo_final_csharp.App_Start
             set { this.fecha = value; }
             get { return this.fecha; }
         }
+        public int SGIdFactura
+        {
+            set { this.IdFactura = value; }
+            get { return IdFactura; }
+        }
+
         public string FormatoFecha(DateTime fe)
         {
             return fe.ToString("dd/MM/yyyy");
@@ -69,7 +67,10 @@ namespace Trabajo_final_csharp.App_Start
         public int Tamaño //tamaño del registro Notas
         {
             // Longitud en bytes de los atributos (un long = 8 bytes)
-            get { return 4 + Tipo.Length * 2 + 16 + (FormatoFecha(fecha).Length * 2)+8; }
+            get { return 4 + Tipo.Length * 2 + 16 + FormatoFecha(fecha).Length * 2+8; }
         }
+
+
     }
 }
+    

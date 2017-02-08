@@ -3,118 +3,101 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Trabajo_final_csharp.Clases
+namespace Trabajo_final_csharp.App_Start
 {
     public class FacturaReal
     {
-        private int idFactura;
-        private DateTime fechaEmision;
+        private int IdFactura;
+        private DateTime fechaEmsion;
         private DateTime fechaMovimiento;
-        private string tipoCambio;
-        private string modo;
-        //private int DniCliente;//es el dni del cliente
+        private string Tipo;//si es cobro o pago
+        private Double Monto;
+        private string Moneda;//dolar o peso
+        private string Modo;//modo de pago si es efectivo con cheques 
         private int IdNota;
         private int IdCheque;
-        string destinatario;
-        string originante;
-        double monto;
-        string moneda;
+        private string Destinatario;
+        private string Originante;
 
-        //CONSTRUCTOR
+        //CONSTRUCTORES
+        public FacturaReal() { }
 
-        public FacturaReal(int idFact, DateTime fEmision, DateTime fMovimiento, string tip, string mod, int cli, int not, int cheq, double monto, string moneda)
+        public FacturaReal(int IF,DateTime FE, DateTime FM, string ti,Double mon,string mone,string mod,int IN, int IC,string des,string ori)
         {
-            this.IdFactura = idFact;
-            this.fechaEmision = fEmision;
-            this.fechaMovimiento = fMovimiento;
-            this.tipoCambio = tip;
+            this.IdFactura = IF;
+            this.fechaEmsion = FE;
+            this.fechaMovimiento = FM;
+            this.Tipo = ti;
+            this.Monto = mon;
+            this.Moneda = mone;
             this.Modo = mod;
-            //this.DniCliente = cli;
-            this.IdNota = not;
-            this.IdCheque = cheq;
-            this.monto = monto;
-            this.moneda = moneda;
-
+            this.IdNota = IN;
+            this.IdCheque = IC;
+            this.Destinatario = des;
+            this.Originante = ori;
         }
-
-        //PROPERTIES
-
-        public int IdFactura
+        public int SGIdFactura
         {
-            get { return idFactura; }
-            set { idFactura = value; }
+            get { return IdFactura; }
+            set { IdFactura = value; }
         }
 
-        public DateTime FechaEmision
+        public DateTime SGFechaEmi
         {
-            get { return fechaEmision; }
-            set { fechaEmision = value; }
+            get { return fechaEmsion; }
+            set { fechaEmsion = value; }
         }
 
-        public DateTime FechaMovimiento
+        public DateTime SGFechaMov
         {
             get { return fechaMovimiento; }
             set { fechaMovimiento = value; }
         }
-
-        public string TipoCambio
+        public string SGTipo
         {
-            get { return tipoCambio; }
-            set { tipoCambio = value; }
+            get { return Tipo; }
+            set { Tipo = value; }
         }
-
-        public string Modo
+        public Double SGMonto
         {
-            get { return modo; }
-            set { modo = value; }
+            get { return Monto; }
+            set { Monto = value; }
         }
-
-        //public int Cliente
-        //{
-        //    get { return DniCliente; }
-        //    set { DniCliente = value; }
-        //}
-
-        public int idNota
+        public string SGMoneda
+        {
+            get { return Moneda; }
+            set { Moneda = value; }
+        }
+        public string SGModo
+        {
+            get { return Modo; }
+            set { Modo = value; }
+        }
+        public int SGIdNota
         {
             get { return IdNota; }
             set { IdNota = value; }
         }
-
-        public int Cheque
+        public int SGIdCheque
         {
             get { return IdCheque; }
-            set { IdCheque = value; }
+            set { IdCheque= value; }
         }
-        public string Destinatario
+        public string SGDestinatario
         {
-            get { return destinatario; }
-            set { destinatario = value; }
+            get { return Destinatario; }
+            set { Destinatario = value; }
         }
-        public string Originante
+        public string SGOriginante
         {
-            get { return originante; }
-            set { originante = value; }
-        }
-        public double Monto
-        {
-            get { return monto; }
-            set { monto = value; }
-        }
-        public string Moneda
-        {
-            get { return moneda; }
-            set { moneda = value; }
+            get { return Originante; }
+            set { Originante = value; }
         }
         public string FormatoFecha(DateTime fe)
         {
             return fe.ToString("dd/MM/yyyy");
         }
-
-        public int Tamaño //tamaño del registro Persona
-        {
-            // Longitud en bytes de los atributos (un long = 8 bytes)
-            get { return (8 + FormatoFecha(fechaEmision).Length*2 + FormatoFecha(fechaMovimiento).Length * 2 + tipoCambio.Length * 2 + modo.Length * 2 + 8 + 8 + destinatario.Length * 2 + originante.Length * 2 + 16 + moneda.Length * 2); }
-        }
+        public int Tamaño
+        { get { return (8+ FormatoFecha(SGFechaEmi).Length * 2+ FormatoFecha(SGFechaMov).Length * 2+SGTipo.Length*2+16+SGMoneda.Length*2+SGModo.Length*2+8+8+SGDestinatario.Length*2+SGOriginante.Length*2); } }
     }
 }
